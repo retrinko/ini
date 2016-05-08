@@ -1,0 +1,29 @@
+{
+  "name": "retrinko/ini",
+  "description": "Library for parsing and writing INI files",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "ini", "file", "write", "parse", "read"
+  ],
+  "authors": [
+    {
+      "name": "Miguel Ángel Graña",
+      "email": "miguel.mailbox@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
+  "suggest": {
+  },
+  "repositories": [],
+  "autoload": {
+    "psr-4": {
+      "Retrinko\\Ini\\": "src"
+    }
+  }
+}
