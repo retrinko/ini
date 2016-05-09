@@ -5,10 +5,10 @@ Library for parsing and writing ini files.
 Features provided over native PHP ini parser:
 
 - Throws exceptions instead of PHP errors.
-- Better type supports.
+- Better type support.
 - Section inheritance.
 
-_NOTE_: This parser not allows orphan items (items defined outside a section). 
+_NOTE_: This parser does not allow orphan items (items defined outside a section). 
 
 ##  Installation
 
