@@ -32,6 +32,42 @@ class IniParserTest extends PHPUnit_Framework_TestCase
         $parser->parseIniString($string);
     }
 
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_parseArray_withInvalidArrayFormat_throwsException()
+    {
+        $array = ['a', 'b', 'c'];
+        $parser = \Retrinko\Ini\IniParser::i();
+        $parser->parseArray($array);
+    }
+
+    public function test_parseArray_withEmptyArray_returnsEmptyArray()
+    {
+        $array = [];
+        $parser = \Retrinko\Ini\IniParser::i();
+        $result = $parser->parseArray($array);
+        $this->assertTrue(is_array($result) && empty($result));
+    }
+
+    public function test_parseArray_withProperArrayFormat_returnsIniSectionsArray()
+    {
+        $array = ['a'=>['key'=>'val-a'], 
+                  'b'=>['key'=>'val-b'], 
+                  'c'=>['key'=>'val-c']];
+        $parser = \Retrinko\Ini\IniParser::i();
+        $sections = $parser->parseArray($array);
+        $this->assertTrue(is_array($sections));
+        foreach ($sections as $section)
+        {
+            $this->assertTrue($section instanceof \Retrinko\Ini\IniSection);
+        }
+        $this->assertArrayHasKey('a', $sections);
+        $this->assertArrayHasKey('b', $sections);
+        $this->assertArrayHasKey('c', $sections);
+    }
+
+
     public function test_castItemValueToProperType_withValidParam_returnsProperData()
     {
         $string = 'hello world';
