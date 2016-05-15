@@ -6,7 +6,7 @@ use Retrinko\Ini\IniFile;
 
 try
 {
-    // Load contenst from ini file
+    // Load contents from ini file
     $iniFile = IniFile::load((__DIR__ . '/sample.ini'));
 
     // Read key1 value from default section
