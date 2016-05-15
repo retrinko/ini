@@ -8,6 +8,8 @@ use Retrinko\Ini\Exceptions\InvalidDataException;
 class IniParser
 {
 
+    const SECTION_INHERITANCE_OPERATOR = ':';
+
     /**
      * @var IniParser
      */
@@ -198,7 +200,7 @@ class IniParser
         $parsedContents = [];
         foreach ($rawContents as $sectionFullName => $sectionContents)
         {
-            $pieces = explode(':', $sectionFullName, 2);
+            $pieces = explode(self::SECTION_INHERITANCE_OPERATOR, $sectionFullName, 2);
             $sectionName = trim($pieces[0]);
             if (!is_array($sectionContents))
             {
