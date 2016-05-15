@@ -1,0 +1,8 @@
+<phpunit colors="true">
+    <testsuites>
+        <!-- Default test suite to run all tests -->
+        <testsuite>
+            <directory suffix=".php">./</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
