@@ -67,30 +67,7 @@ class IniParser
                 throw new InvalidDataException('Error parsing ini string!');
             }
 
-            foreach ($rawContents as $sectionFullName => $sectionContents)
-            {
-                $pieces = explode(':', $sectionFullName, 2);
-                $sectionName = trim($pieces[0]);
-                if (!is_array($sectionContents))
-                {
-                    throw new InvalidDataException(sprintf('Orphan fields are not allowed! ' .
-                                                           'Please define a section for field "%s".',
-                                                           $sectionName));
-                }
-                $parsedContents[$sectionName] = new IniSection($sectionName);
-                $parsedContents[$sectionName]->setContents($sectionContents);
-                $parentName = isset($pieces[1]) ? trim($pieces[1]) : null;
-                if (!is_null($parentName))
-                {
-                    if (!isset($parsedContents[$parentName]))
-                    {
-                        throw new InvalidDataException(sprintf('Parent section not found! ' .
-                                                               'Define "%s" section before "%s" section.',
-                                                               $parentName, $sectionName));
-                    }
-                    $parsedContents[$sectionName]->setParent($parsedContents[$parentName]);
-                }
-            }
+            $parsedContents = $this->parseArray($rawContents);
         }
 
         return $parsedContents;
@@ -207,6 +184,44 @@ class IniParser
         }
 
         return [$valid, $message];
+    }
+
+
+    /**
+     * @param array $rawContents
+     *
+     * @return IniSection[]
+     * @throws InvalidDataException
+     */
+    public function parseArray(array $rawContents)
+    {
+        $parsedContents = [];
+        foreach ($rawContents as $sectionFullName => $sectionContents)
+        {
+            $pieces = explode(':', $sectionFullName, 2);
+            $sectionName = trim($pieces[0]);
+            if (!is_array($sectionContents))
+            {
+                throw new InvalidDataException(sprintf('Orphan fields are not allowed! ' .
+                                                       'Please define a section for field "%s".',
+                                                       $sectionName));
+            }
+            $parsedContents[$sectionName] = new IniSection($sectionName);
+            $parsedContents[$sectionName]->setContents($sectionContents);
+            $parentName = isset($pieces[1]) ? trim($pieces[1]) : null;
+            if (!is_null($parentName))
+            {
+                if (!isset($parsedContents[$parentName]))
+                {
+                    throw new InvalidDataException(sprintf('Parent section not found! ' .
+                                                           'Define "%s" section before "%s" section.',
+                                                           $parentName, $sectionName));
+                }
+                $parsedContents[$sectionName]->setParent($parsedContents[$parentName]);
+            }
+        }
+
+        return $parsedContents;
     }
 
 }
