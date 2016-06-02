@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/retrinko/ini.svg?branch=master)](https://travis-ci.org/retrinko/ini)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/retrinko/ini/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/retrinko/ini/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/retrinko/ini/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/retrinko/ini/?branch=master)
 
 # retrinko/ini
 
