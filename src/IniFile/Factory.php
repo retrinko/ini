@@ -33,7 +33,7 @@ class Factory
         $iniFile = new IniFile();
         foreach ($iniSections as $iniSection)
         {
-            if (false == $iniSection instanceof IniSection)
+            if (false === $iniSection instanceof IniSection)
             {
                 throw new InvalidDataException('Invalid data! ');
             }

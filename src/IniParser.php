@@ -126,7 +126,7 @@ class IniParser
     {
         if (is_bool($value))
         {
-            $castedValue = (true == $value) ? 'true' : 'false';
+            $castedValue = (true === $value) ? 'true' : 'false';
         }
         elseif (is_null($value))
         {

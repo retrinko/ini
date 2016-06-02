@@ -157,7 +157,7 @@ class IniSection
     public function set($itemName, $itemValue)
     {
         list($validationResult, $message) = IniParser::i()->validateItemName($itemName);
-        if (false == $validationResult)
+        if (false === $validationResult)
         {
             throw new InvalidDataException($message);
         }
