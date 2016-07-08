@@ -33,16 +33,7 @@ class IniFile
         $this->parser = IniParser::i();
         if (!is_null($file))
         {
-            if (!is_file($file))
-            {
-                throw new FileException(sprintf('File "%s" does not exist!', $file));
-            }
-
-            if (!is_readable($file))
-            {
-                throw new FileException(sprintf('File "%s" is not readable!', $file));
-            }
-            $this->file = $file;
+            $this->file = IniFileLocator::i()->locate($file);
             $rawContents = file_get_contents($this->file);
         }
         $this->sections = $this->parser->parseIniString($rawContents);
