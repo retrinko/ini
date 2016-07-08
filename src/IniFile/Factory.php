@@ -42,5 +42,15 @@ class Factory
 
         return $iniFile;
     }
+
+    /**
+     * @param string $file File path
+     *
+     * @return IniFile
+     */
+    public static function fromFile($file)
+    {
+        return new IniFile($file);
+    }
     
 }
