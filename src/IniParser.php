@@ -51,6 +51,15 @@ class IniParser
         return static::$instance;
     }
 
+    private function __clone()
+    {
+    }
+
+    /** @noinspection PhpUnusedPrivateMethodInspection */
+    private function __wakeup()
+    {
+    }
+    
     /**
      * @param $string
      *
