@@ -24,7 +24,7 @@ class IniSection
     /**
      * Section constructor.
      *
-     * @param $name
+     * @param string $name
      * @param IniSection $parent
      */
     public function __construct($name, IniSection $parent = null)
@@ -201,7 +201,7 @@ class IniSection
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     protected function renderName()
     {
@@ -242,7 +242,7 @@ class IniSection
      * @param string $name
      * @param string $value
      *
-     * @return array
+     * @return string[]
      */
     protected function renderStringItem($name, $value)
     {
