@@ -2,7 +2,7 @@
 
 namespace Retrinko\Ini\Exceptions;
 
-class FileException extends \Exception
+class FileException extends Exception
 {
 
 }

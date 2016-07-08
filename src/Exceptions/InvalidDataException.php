@@ -4,7 +4,7 @@
 namespace Retrinko\Ini\Exceptions;
 
 
-class InvalidDataException extends \Exception
+class InvalidDataException extends Exception
 {
 
 }
