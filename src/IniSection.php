@@ -142,7 +142,7 @@ class IniSection
     public function get($itemName, $defaultValue = null)
     {
         $contents = $this->composeContents();
-        $value =  isset($contents[$itemName]) ? $contents[$itemName] : $defaultValue;
+        $value = isset($contents[$itemName]) ? $contents[$itemName] : $defaultValue;
 
         return IniParser::i()->castItemValueToProperType($value);
     }
@@ -162,6 +162,7 @@ class IniSection
             throw new InvalidDataException($message);
         }
         $this->contents[$itemName] = IniParser::i()->itemValuetoStringRepresentation($itemValue);
+
         return $this;
     }
 
@@ -213,6 +214,7 @@ class IniSection
         {
             $line = [sprintf('[%s]', $this->getName())];
         }
+
         return $line;
     }
 

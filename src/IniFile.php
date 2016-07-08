@@ -66,7 +66,7 @@ class IniFile
             $outputFile = $this->file;
         }
 
-        if(is_file($outputFile) && !is_writable($outputFile))
+        if (is_file($outputFile) && !is_writable($outputFile))
         {
             throw new FileException(sprintf('Output file "%s" is not writable!', $outputFile));
         }
@@ -97,7 +97,7 @@ class IniFile
             if (!isset($this->sections[$section->getParent()->getName()]))
             {
                 throw new InvalidDataException(sprintf('Parent section "%s" does not exists!',
-                                                     $section->getParent()->getName()));
+                                                       $section->getParent()->getName()));
             }
         }
 

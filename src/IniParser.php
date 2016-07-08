@@ -59,7 +59,7 @@ class IniParser
     private function __wakeup()
     {
     }
-    
+
     /**
      * @param $string
      *

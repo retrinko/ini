@@ -52,5 +52,5 @@ class Factory
     {
         return new IniFile($file);
     }
-    
+
 }
