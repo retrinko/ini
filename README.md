@@ -27,6 +27,8 @@ Install the latest version with
 
 ###  Reading ini contents:
 
+__NOTICE!!__: Attention to __.local.ini__ files. If you try to load a file named _[whateverYouWants].ini_ and a the file _[whateverYouWants].local.ini_ exist in the same path, the last one will be loaded instead the first one.
+
 Ini file contents (sample.ini):
 
     [default]
