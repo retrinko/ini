@@ -23,7 +23,7 @@ class IniFile
     /**
      * IniFile constructor.
      *
-     * @param string $file
+     * @param string|null $file
      *
      * @throws FileException
      */
