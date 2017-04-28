@@ -115,4 +115,23 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $ini = new \Retrinko\Ini\IniFile($file);
         $this->assertTrue(is_float($ini->get('B', 'floatVal')));
     }
+
+    public function test_deleteSection_withValidSection_deletesSection()
+    {
+        $file = __DIR__ . '/data/simple.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini->addSection(new \Retrinko\Ini\IniSection('DELETEME'));
+        $ini->deleteSection('DELETEME');
+        $this->assertFalse($ini->hasSection('DELETEME'));
+    }
+
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_deleteSection_withInvalidSection_throwsException()
+    {
+        $file = __DIR__ . '/data/simple.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini->deleteSection('NO-EXISTING-SECTION');
+    }
 }
