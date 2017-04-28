@@ -133,6 +133,22 @@ class IniFile
     }
 
     /**
+     * @param string $sectionName
+     *
+     * @return $this
+     * @throws InvalidDataException
+     */
+    public function deleteSection($sectionName)
+    {
+        if (!$this->hasSection($sectionName))
+        {
+            throw new InvalidDataException(sprintf('Section "%s" does not exists!', $sectionName));
+        }
+        unset($this->sections[$sectionName]);
+        return $this;
+    }
+
+    /**
      * Get normalized item value
      *
      * @param string $sectionName
@@ -162,6 +178,24 @@ class IniFile
         $section = $this->getSection($sectionName);
         $section->set($itemName, $itemValue);
 
+        return $this;
+    }
+
+    /**
+     * @param string $sectionName
+     * @param string $itemName
+     *
+     * @return $this
+     * @throws InvalidDataException
+     */
+    public function delete($sectionName, $itemName)
+    {
+        if (!$this->hasSection($sectionName))
+        {
+            throw new InvalidDataException(sprintf('Section "%s" does not exists!', $sectionName));
+        }
+        $section = $this->getSection($sectionName);
+        $section->delete($itemName);
         return $this;
     }
 
