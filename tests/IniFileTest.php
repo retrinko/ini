@@ -115,4 +115,42 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $ini = new \Retrinko\Ini\IniFile($file);
         $this->assertTrue(is_float($ini->get('B', 'floatVal')));
     }
+
+    public function test_delete_withValidSectionNameAndItemName_returnsProperValue()
+    {
+        $file = __DIR__.'/data/test.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $return = $ini->delete('test', 'A');
+        $this->assertEquals($ini, $return);
+    }
+
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_delete_withValidSectionNameAndInvalidItemName_throwsException()
+    {
+        $file = __DIR__.'/data/test.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini->delete('test', 'NON-EXISTENT-ITEM');
+    }
+
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_delete_withInvalidSectionNameAndValidItemName_throwsException()
+    {
+        $file = __DIR__.'/data/test.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini->delete('NON-EXISTENT-SECTION', 'A');
+    }
+
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_delete_withInvalidSectionNameAndItemName_throwsException()
+    {
+        $file = __DIR__.'/data/test.ini';
+        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini->delete('NON-EXISTENT-SECTION', 'NON-EXISTENT-ITEM');
+    }
 }

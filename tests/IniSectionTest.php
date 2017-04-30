@@ -119,5 +119,23 @@ EOF;
         $this->assertEquals($expected, $string);
     }
 
+    public function test_delete_withValidItemName_returnsIniSection()
+    {
+        $section = new \Retrinko\Ini\IniSection('test');
+        $section->set('TestValue', 'Test');
+        $return = $section->delete('TestValue');
+        $this->assertEquals($return, $section);
+    }
+
+    /**
+     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     */
+    public function test_delete_withInvalidItemName_throwsException()
+    {
+        $section = new \Retrinko\Ini\IniSection('test');
+        $section->set('TestValue', 'Test');
+        $return = $section->delete('NON-EXISTENT-ITEM');
+    }
+
 
 }
