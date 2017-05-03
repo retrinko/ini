@@ -1,5 +1,5 @@
 {
-  "name": "retrinko/ini",
+  "name": "FlmBus/ini",
   "description": "Library for parsing and writing INI files",
   "type": "library",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "repositories": [],
   "autoload": {
     "psr-4": {
-      "Retrinko\\Ini\\": "src"
+      "FlmBus\\Ini\\": "src"
     }
   }
 }

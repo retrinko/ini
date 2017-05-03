@@ -1,9 +1,9 @@
 <?php
 
-namespace Retrinko\Ini;
+namespace FlmBus\Ini;
 
-use Retrinko\Ini\Exceptions\FileException;
-use Retrinko\Ini\Exceptions\InvalidDataException;
+use FlmBus\Ini\Exceptions\FileException;
+use FlmBus\Ini\Exceptions\InvalidDataException;
 
 class IniFile
 {

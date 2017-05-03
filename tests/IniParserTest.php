@@ -8,7 +8,7 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_parseIniString_withValidString_returnsNotEmptyArray()
     {
         $string = file_get_contents(__DIR__.'/data/simple.ini');
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $parsedContents = $parser->parseIniString($string);
         $this->assertTrue(is_array($parsedContents) && !empty($parsedContents));
     }
@@ -17,35 +17,35 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_parseIniString_withEmptyString_returnsEmptyArray()
     {
         $string = '';
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $parsedContents = $parser->parseIniString($string);
         $this->assertTrue(is_array($parsedContents) && empty($parsedContents));
     }
 
     /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     * @expectedException \FlmBus\Ini\Exceptions\InvalidDataException
      */
     public function test_parseIniString_withInvalidIniString_throwsException()
     {
         $string = 'No ini string!!';
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $parser->parseIniString($string);
     }
 
     /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
+     * @expectedException \FlmBus\Ini\Exceptions\InvalidDataException
      */
     public function test_parseArray_withInvalidArrayFormat_throwsException()
     {
         $array = ['a', 'b', 'c'];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $parser->parseArray($array);
     }
 
     public function test_parseArray_withEmptyArray_returnsEmptyArray()
     {
         $array = [];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $result = $parser->parseArray($array);
         $this->assertTrue(is_array($result) && empty($result));
     }
@@ -55,12 +55,12 @@ class IniParserTest extends PHPUnit_Framework_TestCase
         $array = ['a'=>['key'=>'val-a'], 
                   'b'=>['key'=>'val-b'], 
                   'c'=>['key'=>'val-c']];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = \FlmBus\Ini\IniParser::i();
         $sections = $parser->parseArray($array);
         $this->assertTrue(is_array($sections));
         foreach ($sections as $section)
         {
-            $this->assertTrue($section instanceof \Retrinko\Ini\IniSection);
+            $this->assertTrue($section instanceof \FlmBus\Ini\IniSection);
         }
         $this->assertArrayHasKey('a', $sections);
         $this->assertArrayHasKey('b', $sections);
@@ -71,27 +71,27 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_castItemValueToProperType_withValidParam_returnsProperData()
     {
         $string = 'hello world';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($string);
+        $casted = \FlmBus\Ini\IniParser::i()->castItemValueToProperType($string);
         $this->assertTrue(is_string($casted));
         $this->assertEquals('hello world', $casted);
 
         $int = '1';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($int);
+        $casted = \FlmBus\Ini\IniParser::i()->castItemValueToProperType($int);
         $this->assertTrue(is_int($casted));
         $this->assertEquals(1, $casted);
 
         $float = '1.5';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($float);
+        $casted = \FlmBus\Ini\IniParser::i()->castItemValueToProperType($float);
         $this->assertTrue(is_float($casted));
         $this->assertEquals(floatval(1.5), $casted);
 
         $bool = 'true';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($bool);
+        $casted = \FlmBus\Ini\IniParser::i()->castItemValueToProperType($bool);
         $this->assertTrue(is_bool($casted));
         $this->assertEquals(true, $casted);
 
         $null = 'null';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($null);
+        $casted = \FlmBus\Ini\IniParser::i()->castItemValueToProperType($null);
         $this->assertTrue(is_null($casted));
 
     }
@@ -99,28 +99,28 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_itemValuetoStringRepresentation_withValidParam_returnStringRepresentation()
     {
         $string = 'hello world';
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($string);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($string);
         $this->assertEquals('hello world', $casted);
 
         $int = 1;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($int);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($int);
         $this->assertEquals('1', $casted);
 
         $float = 1.5;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($float);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($float);
         $this->assertEquals('1.5', $casted);
 
         $bool = true;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($bool);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($bool);
         $this->assertEquals('true', $casted);
 
         $null = null;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($null);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($null);
         $this->assertEquals('null', $casted);
 
         $array = ['string'=>'hello world', 'int'=>1, 'float'=>1.5, 'bool'=>true, 'null'=>null];
         $expected = ['string'=>'hello world', 'int'=>'1', 'float'=>'1.5', 'bool'=>'true', 'null'=>'null'];
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($array);
+        $casted = \FlmBus\Ini\IniParser::i()->itemValuetoStringRepresentation($array);
         $this->assertEquals($expected, $casted);
 
     }
@@ -133,7 +133,7 @@ class IniParserTest extends PHPUnit_Framework_TestCase
 
         foreach ($invalidNames  as $invalidName)
         {
-            $result = \Retrinko\Ini\IniParser::i()->validateItemName($invalidName);
+            $result = \FlmBus\Ini\IniParser::i()->validateItemName($invalidName);
             $this->assertTrue(is_array($result));
             $this->assertTrue(isset($result[0]));
             $this->assertTrue(is_bool($result[0]));
@@ -144,7 +144,7 @@ class IniParserTest extends PHPUnit_Framework_TestCase
         }
 
         $validName = 'hello';
-        $result = \Retrinko\Ini\IniParser::i()->validateItemName($validName);
+        $result = \FlmBus\Ini\IniParser::i()->validateItemName($validName);
         $this->assertTrue(is_array($result));
         $this->assertTrue(isset($result[0]));
         $this->assertTrue(is_bool($result[0]));

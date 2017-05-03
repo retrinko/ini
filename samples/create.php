@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Retrinko\Ini\IniFile;
-use Retrinko\Ini\IniSection;
+use FlmBus\Ini\IniFile;
+use FlmBus\Ini\IniSection;
 
 try
 {
