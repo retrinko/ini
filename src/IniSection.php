@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Retrinko\Ini;
+namespace FlmBus\Ini;
 
 
-use Retrinko\Ini\Exceptions\InvalidDataException;
+use FlmBus\Ini\Exceptions\InvalidDataException;
 
 class IniSection
 {
@@ -169,6 +169,24 @@ class IniSection
     /**
      * @param string $itemName
      *
+     * @return $this
+     * @throws InvalidDataException
+     */
+    public function delete($itemName)
+    {
+        list($validationResult, $message) = IniParser::i()->validateItemName($itemName);
+        if (false === $this->hasItem($itemName) || false === $validationResult)
+        {
+            throw new InvalidDataException($message);
+        }
+        unset($this->contents[$itemName]);
+
+        return $this;
+    }
+
+    /**
+     * @param string $itemName
+     *
      * @return bool
      */
     public function hasItem($itemName)
@@ -176,6 +194,14 @@ class IniSection
         $value = $this->get($itemName, null);
 
         return !is_null($value);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->contents);
     }
 
     /**

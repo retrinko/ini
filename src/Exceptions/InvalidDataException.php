@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Retrinko\Ini\Exceptions;
+namespace FlmBus\Ini\Exceptions;
 
 
 class InvalidDataException extends Exception

@@ -1,11 +1,11 @@
 <?php
 
-namespace Retrinko\Ini\IniFile;
+namespace FlmBus\Ini\IniFile;
 
-use Retrinko\Ini\Exceptions\InvalidDataException;
-use Retrinko\Ini\IniFile;
-use Retrinko\Ini\IniParser;
-use Retrinko\Ini\IniSection;
+use FlmBus\Ini\Exceptions\InvalidDataException;
+use FlmBus\Ini\IniFile;
+use FlmBus\Ini\IniParser;
+use FlmBus\Ini\IniSection;
 
 class Factory
 {
@@ -13,7 +13,7 @@ class Factory
      * @param array $data
      *
      * @return IniFile
-     * @throws \Retrinko\Ini\Exceptions\InvalidDataException
+     * @throws \FlmBus\Ini\Exceptions\InvalidDataException
      */
     public static function fromArray(array $data)
     {

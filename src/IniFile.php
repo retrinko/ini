@@ -1,9 +1,9 @@
 <?php
 
-namespace Retrinko\Ini;
+namespace FlmBus\Ini;
 
-use Retrinko\Ini\Exceptions\FileException;
-use Retrinko\Ini\Exceptions\InvalidDataException;
+use FlmBus\Ini\Exceptions\FileException;
+use FlmBus\Ini\Exceptions\InvalidDataException;
 
 class IniFile
 {
@@ -133,6 +133,21 @@ class IniFile
     }
 
     /**
+     * @param string $sectionName
+     *
+     * @throws InvalidDataException
+     */
+    public function deleteSection($sectionName)
+    {
+        if (!$this->hasSection($sectionName))
+        {
+            throw new InvalidDataException(sprintf('Section "%s" does not exists!', $sectionName));
+        }
+
+        unset($this->sections[$sectionName]);
+    }
+
+    /**
      * Get normalized item value
      *
      * @param string $sectionName
@@ -161,6 +176,24 @@ class IniFile
     {
         $section = $this->getSection($sectionName);
         $section->set($itemName, $itemValue);
+
+        return $this;
+    }
+
+    /**
+     * @param string $sectionName
+     * @param string $itemName
+     *
+     * @return $this
+     * @throws InvalidDataException
+     */
+    public function delete($sectionName, $itemName)
+    {
+        $section = $this->getSection($sectionName);
+        $section->delete($itemName);
+        if($section->isEmpty()) {
+            $this->deleteSection($sectionName);
+        }
 
         return $this;
     }

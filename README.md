@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/retrinko/ini.svg?branch=master)](https://travis-ci.org/retrinko/ini)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/retrinko/ini/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/retrinko/ini/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/retrinko/ini/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/retrinko/ini/?branch=master)
-[![Latest Stable Version](https://img.shields.io/packagist/v/retrinko/ini.svg)](https://packagist.org/packages/retrinko/ini)
+[![Build Status](https://travis-ci.org/FlmBus/ini.svg?branch=master)](https://travis-ci.org/FlmBus/ini)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FlmBus/ini/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/FlmBus/ini/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/FlmBus/ini/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/FlmBus/ini/?branch=master)
+[![Latest Stable Version](https://img.shields.io/packagist/v/FlmBus/ini.svg)](https://packagist.org/packages/FlmBus/ini)
 
-# retrinko/ini
+# FlmBus/ini
 
 Library for parsing and writing ini files.
 
@@ -19,7 +19,7 @@ _NOTE_: This parser does not allow orphan items (items defined outside a section
 
 Install the latest version with
 
-    $ composer require retrinko/ini
+    $ composer require FlmBus/ini
     
 ##  Basic usage
 
@@ -63,7 +63,7 @@ Ini file contents (sample.ini):
     
 PHP sample code for reading ini file (sample.ini):
 
-    use Retrinko\Ini\IniFile;
+    use FlmBus\Ini\IniFile;
     
     try
     {
@@ -94,8 +94,8 @@ PHP sample code for reading ini file (sample.ini):
 
 PHP sample code for writing ini file:
 
-    use Retrinko\Ini\IniFile;
-    use Retrinko\Ini\IniSection;
+    use FlmBus\Ini\IniFile;
+    use FlmBus\Ini\IniSection;
     
     try
     {

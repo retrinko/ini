@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Retrinko\Ini;
+namespace FlmBus\Ini;
 
 
-use Retrinko\Ini\Exceptions\FileException;
+use FlmBus\Ini\Exceptions\FileException;
 
 class IniFileLocator
 {
