@@ -191,6 +191,9 @@ class IniFile
     {
         $section = $this->getSection($sectionName);
         $section->delete($itemName);
+        if($section->isEmpty()) {
+            $this->deleteSection($sectionName);
+        }
 
         return $this;
     }

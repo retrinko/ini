@@ -197,6 +197,14 @@ class IniSection
     }
 
     /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->contents);
+    }
+
+    /**
      * @return array
      */
     public function toArray()
