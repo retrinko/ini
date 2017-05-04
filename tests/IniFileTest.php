@@ -124,6 +124,14 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($ini, $return);
     }
 
+    public function test_delete_withValidSectionNameAndItemName_deletesItem()
+    {
+        $file = __DIR__.'/data/test.ini';
+        $ini = new \FlmBus\Ini\IniFile($file);
+        $ini->delete('test', 'A');
+        $this->assertFalse( $ini->getSection('test')->hasItem('A') );
+    }
+
     /**
      * @expectedException \FlmBus\Ini\Exceptions\InvalidDataException
      */

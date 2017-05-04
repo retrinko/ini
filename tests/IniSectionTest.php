@@ -127,6 +127,14 @@ EOF;
         $this->assertEquals($return, $section);
     }
 
+    public function test_delete_withValidItemName_deletesKey()
+    {
+        $section = new \FlmBus\Ini\IniSection('test');
+        $section->set('TestValue', 'Test');
+        $section->delete('TestValue');
+        $this->assertFalse( $section->hasItem('TestValue') );
+    }
+
     /**
      * @expectedException \FlmBus\Ini\Exceptions\InvalidDataException
      */
