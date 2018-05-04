@@ -40,20 +40,20 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
                                 'A' => [
                                     'key' => 'value (Section A)',
-                                    'intVal' => '1',
+                                    'intVal' => '11',
                                     'floatVal' => '1.5',
-                                    'boolValTrue' => 'true',
-                                    'boolValFalse' => 'false',
+                                    'boolValTrue' => 'false',
+                                    'boolValFalse' => 'true',
                                     'arrayData' => ['red', 'green']
                                 ],
-                                'B' => ['key' => 'value (Section B)',
-                                        'intVal' => '1',
+                                'B' => ['key' => 'value (Section B - LOCAL)',
+                                        'intVal' => '11',
                                         'floatVal' => '1.5',
-                                        'boolValTrue' => 'true',
-                                        'boolValFalse' => 'false',
+                                        'boolValTrue' => 'false',
+                                        'boolValFalse' => 'true',
                                         'arrayData' => ['red', 'green']
                                 ],
-                                'C' => ['foo' => 'bar (Section C)'],
+                                'C' => ['foo' => 'bar (Section C) LOCAL'],
                             ],
                             $ini->toArray());
     }
