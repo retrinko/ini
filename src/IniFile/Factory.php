@@ -2,6 +2,7 @@
 
 namespace Retrinko\Ini\IniFile;
 
+use Retrinko\Ini\Exceptions\FileException;
 use Retrinko\Ini\Exceptions\InvalidDataException;
 use Retrinko\Ini\IniFile;
 use Retrinko\Ini\IniParser;
@@ -13,7 +14,8 @@ class Factory
      * @param array $data
      *
      * @return IniFile
-     * @throws \Retrinko\Ini\Exceptions\InvalidDataException
+     * @throws InvalidDataException
+     * @throws FileException
      */
     public static function fromArray(array $data)
     {
@@ -27,6 +29,7 @@ class Factory
      *
      * @return IniFile
      * @throws InvalidDataException
+     * @throws FileException
      */
     public static function fromIniSections(array $iniSections)
     {
@@ -47,6 +50,8 @@ class Factory
      * @param string $file File path
      *
      * @return IniFile
+     * @throws FileException
+     * @throws InvalidDataException
      */
     public static function fromFile($file)
     {

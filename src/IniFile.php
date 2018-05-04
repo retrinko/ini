@@ -12,6 +12,10 @@ class IniFile
      */
     protected $file;
     /**
+     * @var string
+     */
+    protected $localFile;
+    /**
      * @var IniParser;
      */
     protected $parser;
@@ -26,17 +30,23 @@ class IniFile
      * @param string|null $file
      *
      * @throws FileException
+     * @throws InvalidDataException
      */
     public function __construct($file = null)
     {
         $rawContents = '';
+        $localRawContents = '';
         $this->parser = IniParser::i();
         if (!is_null($file))
         {
             $this->file = IniFileLocator::i()->locate($file);
             $rawContents = file_get_contents($this->file);
+            $this->localFile = IniFileLocator::i()->locateLocalFile($file);
+            if (!is_null($this->localFile)) {
+                $localRawContents = file_get_contents($this->localFile);
+            }
         }
-        $this->sections = $this->parser->parseIniString($rawContents);
+        $this->sections = $this->parser->parseIniString($rawContents, $localRawContents);
     }
 
     /**
@@ -44,6 +54,7 @@ class IniFile
      *
      * @return IniFile
      * @throws FileException
+     * @throws InvalidDataException
      */
     public static function load($file)
     {
