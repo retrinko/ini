@@ -27,7 +27,7 @@ Install the latest version with
 
 ###  Reading ini contents:
 
-__NOTICE!!__: Attention to __.local.ini__ files. If you try to load a file named _[whateverYouWants].ini_ and a the file _[whateverYouWants].local.ini_ exist in the same path, the last one will be loaded instead the first one.
+__NOTICE!!__: Attention to __.local.ini__ files. If you try to load a file named _[whateverYouWants].ini_ and _[whateverYouWants].local.ini_ file exists in the same path, the contents of the two files will be merged. If the same key is defined in both files, the one defined in _[whateverYouWants].local.ini_ will override the value defined in _[whateverYouWants].ini_.  
 
 Ini file contents (sample.ini):
 
