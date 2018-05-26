@@ -126,7 +126,13 @@ class IniParser
                 $normalized = (float)$number;
             }
         }
-
+        elseif (is_array($value))
+        {
+            foreach ($value as $itemKey => $itemValue)
+            {
+                $normalized[$itemKey] = $this->castItemValueToProperType($itemValue);
+            }
+        }
         return $normalized;
     }
 

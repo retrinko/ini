@@ -79,14 +79,24 @@ class IniFileTest extends PHPUnit_Framework_TestCase
     {
         $file = __DIR__.'/data/complex.ini';
         $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertEquals(['a', 'b'], $ini->get('B', 'simpleArray'));
+        $this->assertEquals(['a', 'b', true, true, true, false, false, false, 1, 0.5], $ini->get('B', 'simpleArray'));
     }
 
     public function test_get_withValidFileAndAssociativeArray_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
         $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertEquals(['one'=>1, 'two'=>2], $ini->get('B', 'associativeArray'));
+        $this->assertEquals([
+            'one'=>1,
+            'two'=>2,
+            'true'=>true,
+            'false'=>false,
+            'on'=>true,
+            'off'=>false,
+            'yes'=>true,
+            'no'=>false,
+        ],
+            $ini->get('B', 'associativeArray'));
     }
 
     public function test_get_withValidFileAndBoolValue_returnsProperValue()
