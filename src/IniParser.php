@@ -61,25 +61,32 @@ class IniParser
     }
 
     /**
-     * @param $string
-     *
+     * @param string $iniString
+     * @param string $localIniString
      * @return IniSection[]
      * @throws InvalidDataException
      */
-    public function parseIniString($string)
+    public function parseIniString($iniString, $localIniString = '')
     {
-        $parsedContents = [];
-
-        if (strlen($string) > 0)
+        $rawContents = [];
+        $iniStrings = ['ini' => $iniString, 'local' => $localIniString];
+        foreach ($iniStrings as $key => $string)
         {
-            $rawContents = @parse_ini_string($string, true, INI_SCANNER_RAW);
-            if (false === $rawContents)
+            if (strlen($string) > 0)
             {
-                throw new InvalidDataException('Error parsing ini string!');
+                $rawContents[$key] = @parse_ini_string($string, true, INI_SCANNER_RAW);
+                if (false === $rawContents[$key])
+                {
+                    throw new InvalidDataException('Error parsing ini string!');
+                }
             }
-
-            $parsedContents = $this->parseArray($rawContents);
+            else
+            {
+                $rawContents[$key] = [];
+            }
         }
+        $rawContents = array_replace_recursive($rawContents['ini'], $rawContents['local']);
+        $parsedContents = $this->parseArray($rawContents);
 
         return $parsedContents;
     }
@@ -119,7 +126,13 @@ class IniParser
                 $normalized = (float)$number;
             }
         }
-
+        elseif (is_array($value))
+        {
+            foreach ($value as $itemKey => $itemValue)
+            {
+                $normalized[$itemKey] = $this->castItemValueToProperType($itemValue);
+            }
+        }
         return $normalized;
     }
 

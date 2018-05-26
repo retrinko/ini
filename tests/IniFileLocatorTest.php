@@ -21,17 +21,6 @@ class IniFileLocatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(realpath($file), realpath($path));
     }
 
-    /**
-     * @depends test_i_returnsIniFileLocatorInstance
-     * @throws \Retrinko\Ini\Exceptions\FileException
-     */
-    public function test_locate_returnsLocalFileIfExists()
-    {
-        $file = __DIR__.'/data/test.ini';
-        $expected = __DIR__.'/data/test.local.ini';
-        $path = \Retrinko\Ini\IniFileLocator::i()->i()->locate($file);
-        $this->assertEquals(realpath($expected), realpath($path));
-    }
 
     /**
      * @depends test_i_returnsIniFileLocatorInstance

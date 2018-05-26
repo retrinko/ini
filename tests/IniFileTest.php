@@ -40,20 +40,20 @@ class IniFileTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([
                                 'A' => [
                                     'key' => 'value (Section A)',
-                                    'intVal' => '1',
+                                    'intVal' => '11',
                                     'floatVal' => '1.5',
-                                    'boolValTrue' => 'true',
-                                    'boolValFalse' => 'false',
+                                    'boolValTrue' => 'false',
+                                    'boolValFalse' => 'true',
                                     'arrayData' => ['red', 'green']
                                 ],
-                                'B' => ['key' => 'value (Section B)',
-                                        'intVal' => '1',
+                                'B' => ['key' => 'value (Section B - LOCAL)',
+                                        'intVal' => '11',
                                         'floatVal' => '1.5',
-                                        'boolValTrue' => 'true',
-                                        'boolValFalse' => 'false',
+                                        'boolValTrue' => 'false',
+                                        'boolValFalse' => 'true',
                                         'arrayData' => ['red', 'green']
                                 ],
-                                'C' => ['foo' => 'bar (Section C)'],
+                                'C' => ['foo' => 'bar (Section C) LOCAL'],
                             ],
                             $ini->toArray());
     }
@@ -79,14 +79,24 @@ class IniFileTest extends PHPUnit_Framework_TestCase
     {
         $file = __DIR__.'/data/complex.ini';
         $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertEquals(['a', 'b'], $ini->get('B', 'simpleArray'));
+        $this->assertEquals(['a', 'b', true, true, true, false, false, false, 1, 0.5], $ini->get('B', 'simpleArray'));
     }
 
     public function test_get_withValidFileAndAssociativeArray_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
         $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertEquals(['one'=>1, 'two'=>2], $ini->get('B', 'associativeArray'));
+        $this->assertEquals([
+            'one'=>1,
+            'two'=>2,
+            'true'=>true,
+            'false'=>false,
+            'on'=>true,
+            'off'=>false,
+            'yes'=>true,
+            'no'=>false,
+        ],
+            $ini->get('B', 'associativeArray'));
     }
 
     public function test_get_withValidFileAndBoolValue_returnsProperValue()

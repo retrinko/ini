@@ -85,18 +85,30 @@ class IniFileLocator
         )
         {
             throw new FileException(sprintf('Invalid file extension! Supported file extensions: %s',
-                                            implode(', ', $this->supportedExtensions)));
-        }
-
-        $localFileName = $pathInfo['dirname'] . DIRECTORY_SEPARATOR
-                         . $this->composeLocalFileName($pathInfo['filename'],
-                                                       $pathInfo['extension']);
-        if (is_file($localFileName) && is_readable($localFileName))
-        {
-            $file = $localFileName;
+                implode(', ', $this->supportedExtensions)));
         }
 
         return realpath($file);
+    }
+
+    /**
+     * @param $filePath
+     * @return null|string
+     * @throws FileException
+     */
+    public function locateLocalFile($filePath)
+    {
+        $file = null;
+        $pathInfo = pathinfo($filePath);
+        $localFileName = $pathInfo['dirname'] . DIRECTORY_SEPARATOR
+            . $this->composeLocalFileName($pathInfo['filename'],
+                $pathInfo['extension']);
+        if (is_file($localFileName) && is_readable($localFileName))
+        {
+            $file = realpath($localFileName);
+        }
+
+        return $file;
     }
 
     /**
