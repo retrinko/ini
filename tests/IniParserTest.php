@@ -1,14 +1,18 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 
+use PHPUnit\Framework\TestCase;
+use Retrinko\Ini\Exceptions\InvalidDataException;
+use Retrinko\Ini\IniParser;
+use Retrinko\Ini\IniSection;
 
-class IniParserTest extends PHPUnit_Framework_TestCase
+class IniParserTest extends TestCase
 {
 
     public function test_parseIniString_withValidString_returnsNotEmptyArray()
     {
         $string = file_get_contents(__DIR__.'/data/simple.ini');
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $parsedContents = $parser->parseIniString($string);
         $this->assertTrue(is_array($parsedContents) && !empty($parsedContents));
     }
@@ -17,50 +21,46 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_parseIniString_withEmptyString_returnsEmptyArray()
     {
         $string = '';
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $parsedContents = $parser->parseIniString($string);
         $this->assertTrue(is_array($parsedContents) && empty($parsedContents));
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_parseIniString_withInvalidIniString_throwsException()
     {
+        $this->expectException(InvalidDataException::class);
         $string = 'No ini string!!';
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $parser->parseIniString($string);
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_parseArray_withInvalidArrayFormat_throwsException()
     {
+        $this->expectException(InvalidDataException::class);
         $array = ['a', 'b', 'c'];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $parser->parseArray($array);
     }
 
     public function test_parseArray_withEmptyArray_returnsEmptyArray()
     {
         $array = [];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $result = $parser->parseArray($array);
         $this->assertTrue(is_array($result) && empty($result));
     }
 
     public function test_parseArray_withProperArrayFormat_returnsIniSectionsArray()
     {
-        $array = ['a'=>['key'=>'val-a'], 
-                  'b'=>['key'=>'val-b'], 
+        $array = ['a'=>['key'=>'val-a'],
+                  'b'=>['key'=>'val-b'],
                   'c'=>['key'=>'val-c']];
-        $parser = \Retrinko\Ini\IniParser::i();
+        $parser = IniParser::i();
         $sections = $parser->parseArray($array);
-        $this->assertTrue(is_array($sections));
+        $this->assertIsArray($sections);
         foreach ($sections as $section)
         {
-            $this->assertTrue($section instanceof \Retrinko\Ini\IniSection);
+            $this->assertInstanceOf(IniSection::class, $section);
         }
         $this->assertArrayHasKey('a', $sections);
         $this->assertArrayHasKey('b', $sections);
@@ -71,56 +71,56 @@ class IniParserTest extends PHPUnit_Framework_TestCase
     public function test_castItemValueToProperType_withValidParam_returnsProperData()
     {
         $string = 'hello world';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($string);
-        $this->assertTrue(is_string($casted));
+        $casted = IniParser::i()->castItemValueToProperType($string);
+        $this->assertIsString($casted);
         $this->assertEquals('hello world', $casted);
 
         $int = '1';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($int);
-        $this->assertTrue(is_int($casted));
+        $casted = IniParser::i()->castItemValueToProperType($int);
+        $this->assertIsInt($casted);
         $this->assertEquals(1, $casted);
 
         $float = '1.5';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($float);
-        $this->assertTrue(is_float($casted));
+        $casted = IniParser::i()->castItemValueToProperType($float);
+        $this->assertIsFloat($casted);
         $this->assertEquals(floatval(1.5), $casted);
 
         $bool = 'true';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($bool);
-        $this->assertTrue(is_bool($casted));
+        $casted = IniParser::i()->castItemValueToProperType($bool);
+        $this->assertIsBool($casted);
         $this->assertEquals(true, $casted);
 
         $null = 'null';
-        $casted = \Retrinko\Ini\IniParser::i()->castItemValueToProperType($null);
-        $this->assertTrue(is_null($casted));
+        $casted = IniParser::i()->castItemValueToProperType($null);
+        $this->assertNull($casted);
 
     }
-    
+
     public function test_itemValuetoStringRepresentation_withValidParam_returnStringRepresentation()
     {
         $string = 'hello world';
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($string);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($string);
         $this->assertEquals('hello world', $casted);
 
         $int = 1;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($int);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($int);
         $this->assertEquals('1', $casted);
 
         $float = 1.5;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($float);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($float);
         $this->assertEquals('1.5', $casted);
 
         $bool = true;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($bool);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($bool);
         $this->assertEquals('true', $casted);
 
         $null = null;
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($null);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($null);
         $this->assertEquals('null', $casted);
 
         $array = ['string'=>'hello world', 'int'=>1, 'float'=>1.5, 'bool'=>true, 'null'=>null];
         $expected = ['string'=>'hello world', 'int'=>'1', 'float'=>'1.5', 'bool'=>'true', 'null'=>'null'];
-        $casted = \Retrinko\Ini\IniParser::i()->itemValuetoStringRepresentation($array);
+        $casted = IniParser::i()->itemValuetoStringRepresentation($array);
         $this->assertEquals($expected, $casted);
 
     }
@@ -133,23 +133,23 @@ class IniParserTest extends PHPUnit_Framework_TestCase
 
         foreach ($invalidNames  as $invalidName)
         {
-            $result = \Retrinko\Ini\IniParser::i()->validateItemName($invalidName);
-            $this->assertTrue(is_array($result));
+            $result = IniParser::i()->validateItemName($invalidName);
+            $this->assertIsArray($result);
             $this->assertTrue(isset($result[0]));
-            $this->assertTrue(is_bool($result[0]));
+            $this->assertIsBool($result[0]);
             $this->assertTrue(isset($result[1]));
-            $this->assertTrue(is_string($result[1]));
+            $this->assertIsString($result[1]);
             $this->assertFalse($result[0]);
             $this->assertTrue(strlen($result[1])>0);
         }
 
         $validName = 'hello';
-        $result = \Retrinko\Ini\IniParser::i()->validateItemName($validName);
-        $this->assertTrue(is_array($result));
+        $result = IniParser::i()->validateItemName($validName);
+        $this->assertIsArray($result);
         $this->assertTrue(isset($result[0]));
-        $this->assertTrue(is_bool($result[0]));
+        $this->assertIsBool($result[0]);
         $this->assertTrue(isset($result[1]));
-        $this->assertTrue(is_string($result[1]));
+        $this->assertIsString($result[1]);
         $this->assertTrue($result[0]);
         $this->assertTrue(strlen($result[1])>0);
 

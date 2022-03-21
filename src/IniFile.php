@@ -150,7 +150,7 @@ class IniFile
      * @param string $itemName
      * @param mixed $defaultValue
      *
-     * @return mixed
+     * @return array|bool|float|int|string|null
      * @throws InvalidDataException
      */
     public function get($sectionName, $itemName, $defaultValue = null)

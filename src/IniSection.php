@@ -25,7 +25,7 @@ class IniSection
      * Section constructor.
      *
      * @param string $name
-     * @param IniSection $parent
+     * @param IniSection|null $parent
      */
     public function __construct($name, IniSection $parent = null)
     {
@@ -137,7 +137,7 @@ class IniSection
      * @param string $itemName
      * @param mixed $defaultValue
      *
-     * @return mixed
+     * @return array|string|bool|int|float|null
      */
     public function get($itemName, $defaultValue = null)
     {
@@ -173,7 +173,7 @@ class IniSection
      */
     public function hasItem($itemName)
     {
-        $value = $this->get($itemName, null);
+        $value = $this->get($itemName);
 
         return !is_null($value);
     }
@@ -208,6 +208,7 @@ class IniSection
 
         if ($this->hasParent())
         {
+            /** @noinspection NullPointerExceptionInspection */
             $line = [sprintf('[%s : %s]', $this->getName(), $this->getParent()->getName())];
         }
         else

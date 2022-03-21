@@ -8,7 +8,7 @@ use Retrinko\Ini\Exceptions\InvalidDataException;
 class IniParser
 {
 
-    const SECTION_INHERITANCE_OPERATOR = ':';
+    public const SECTION_INHERITANCE_OPERATOR = ':';
 
     /**
      * @var IniParser
@@ -55,8 +55,7 @@ class IniParser
     {
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -94,7 +93,7 @@ class IniParser
     /**
      * Cast item string value to proper type
      *
-     * @param string $value
+     * @param array|string|bool|int|float|null $value
      *
      * @return array|string|bool|int|float|null
      */
@@ -110,7 +109,7 @@ class IniParser
         {
             $normalized = false;
         }
-        elseif ('null' == $value)
+        elseif ('null' === $value)
         {
             $normalized = null;
         }
@@ -139,7 +138,7 @@ class IniParser
     /**
      * Get an string (or an array of strings) representation of $value
      *
-     * @param bool|int|float|null|array $value
+     * @param bool|int|float|null|array|string $value
      *
      * @return array|string
      * @throws InvalidDataException

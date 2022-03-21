@@ -29,7 +29,7 @@ try
     $array = $iniFile->toArray();
     printLn('Contents as array: %s', PHP_EOL . var_export($array, true));
 }
-catch (\Exception $e)
+catch (Exception $e)
 {
     printLn('Exception! %s', $e->getMessage());
 }

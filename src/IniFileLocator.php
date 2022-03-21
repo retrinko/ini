@@ -8,7 +8,7 @@ use Retrinko\Ini\Exceptions\FileException;
 
 class IniFileLocator
 {
-    const LOCAL_FILE_CHUNK = 'local';
+    public const LOCAL_FILE_CHUNK = 'local';
     /**
      * @var array
      */
@@ -53,8 +53,7 @@ class IniFileLocator
     {
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
-    private function __wakeup()
+    public function __wakeup()
     {
     }
 
@@ -79,6 +78,7 @@ class IniFileLocator
                                             $filePath));
         }
 
+        /** @noinspection UriPartExtractionInspection */
         $pathInfo = pathinfo($filePath);
         if (!isset($pathInfo['extension'])
             || !in_array($pathInfo['extension'], $this->supportedExtensions)
