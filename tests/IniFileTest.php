@@ -1,42 +1,44 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 
+use PHPUnit\Framework\TestCase;
+use Retrinko\Ini\Exceptions\FileException;
+use Retrinko\Ini\Exceptions\InvalidDataException;
+use Retrinko\Ini\IniFile;
 
-class IniFileTest extends PHPUnit_Framework_TestCase
+class IniFileTest extends TestCase
 {
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\FileException
-     */
     public function test_construct_withNotExistingFile_throwsException()
     {
+        $this->expectException(FileException::class);
         $file = 'no-file.ini';
-        new \Retrinko\Ini\IniFile($file);
+        new IniFile($file);
     }
 
     public function test_construct_withValidFile_returnsIniFileInstance()
     {
         $file = __DIR__.'/data/simple.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertTrue($ini instanceof \Retrinko\Ini\IniFile);
+        $ini = new IniFile($file);
+        $this->assertInstanceOf(IniFile::class, $ini);
     }
 
     public function test_construct_withNoParams_returnsIniFileInstance()
     {
-        $ini = new \Retrinko\Ini\IniFile();
-        $this->assertTrue($ini instanceof \Retrinko\Ini\IniFile);
+        $ini = new IniFile();
+        $this->assertInstanceOf(IniFile::class, $ini);
     }
 
     public function test_construct_withEmptyFile_returnsIniFileInstance()
     {
         $file = __DIR__.'/data/empty.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertTrue($ini instanceof \Retrinko\Ini\IniFile);
+        $ini = new IniFile($file);
+        $this->assertInstanceOf(IniFile::class, $ini);
     }
 
     public function test_toArray_withValidFile_returnsProperArray()
     {
         $file = __DIR__ . '/data/simple.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $this->assertEquals([
                                 'A' => [
                                     'key' => 'value (Section A)',
@@ -61,31 +63,29 @@ class IniFileTest extends PHPUnit_Framework_TestCase
     public function test_get_withValidFileAndNotPresetField_returnsDefaultValue()
     {
         $file = __DIR__.'/data/simple.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $this->assertEquals('default', $ini->get('B', 'key2', 'default'));
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_get_withValidFileAndNotPresetSection_throwsException()
     {
+        $this->expectException(InvalidDataException::class);
         $file = __DIR__.'/data/simple.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $ini->get('NO-EXISTING-SECTION', 'key2', 'default');
     }
 
     public function test_get_withValidFileAndSimpleArray_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $this->assertEquals(['a', 'b', true, true, true, false, false, false, 1, 0.5], $ini->get('B', 'simpleArray'));
     }
 
     public function test_get_withValidFileAndAssociativeArray_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $this->assertEquals([
             'one'=>1,
             'two'=>2,
@@ -102,7 +102,7 @@ class IniFileTest extends PHPUnit_Framework_TestCase
     public function test_get_withValidFileAndBoolValue_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
+        $ini = new IniFile($file);
         $this->assertEquals(true, $ini->get('B', 'boolTrue'));
         $this->assertEquals(false, $ini->get('B', 'boolFalse'));
         $this->assertEquals(true, $ini->get('B', 'boolYes'));
@@ -115,14 +115,14 @@ class IniFileTest extends PHPUnit_Framework_TestCase
     public function test_get_withValidFileAndIntValue_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertTrue(is_int($ini->get('B', 'intVal')));
+        $ini = new IniFile($file);
+        $this->assertIsInt($ini->get('B', 'intVal'));
     }
 
     public function test_get_withValidFileAndFloatValue_returnsProperValue()
     {
         $file = __DIR__.'/data/complex.ini';
-        $ini = new \Retrinko\Ini\IniFile($file);
-        $this->assertTrue(is_float($ini->get('B', 'floatVal')));
+        $ini = new IniFile($file);
+        $this->assertIsFloat($ini->get('B', 'floatVal'));
     }
 }

@@ -39,8 +39,9 @@ try
     $iniFile->save(__DIR__.'/test.ini');
 
 }
-catch (\Exception $e)
+catch (Exception $e)
 {
+    /** @noinspection ForgottenDebugOutputInspection */
     var_dump($e->getMessage());
 }
 

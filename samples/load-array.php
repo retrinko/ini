@@ -55,7 +55,7 @@ try
     printLn('Ini file saved to: %s', $outputFile);
 
 }
-catch (\Exception $e)
+catch (Exception $e)
 {
     printLn('Exception! %s', $e->getMessage());
 }

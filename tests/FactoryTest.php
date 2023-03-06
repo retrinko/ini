@@ -1,57 +1,60 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
-class FactoryTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+use Retrinko\Ini\Exceptions\InvalidDataException;
+use Retrinko\Ini\IniFile;
+use Retrinko\Ini\IniFile\Factory;
+use Retrinko\Ini\IniSection;
+
+class FactoryTest extends TestCase
 {
 
     public function test_fromArray_withEmptyArray_returnsEmptyIniFile()
     {
         $array = [];
-        $iniFile = \Retrinko\Ini\IniFile\Factory::fromArray($array);
-        $this->assertTrue($iniFile instanceof \Retrinko\Ini\IniFile);
+        $iniFile = Factory::fromArray($array);
+        $this->assertInstanceOf(IniFile::class, $iniFile);
         $this->assertEquals('', $iniFile->toString());
         $this->assertEquals([], $iniFile->toArray());
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_fromArray_withInvalidArray_thrownsException()
     {
+        $this->expectException(InvalidDataException::class);
         $array = ['a', 'b', 'c'];
-        \Retrinko\Ini\IniFile\Factory::fromArray($array);
+        Factory::fromArray($array);
     }
 
     public function test_fromIniSections_withEmptyArray_returnsEmptyIniFile()
     {
         $array = [];
-        $iniFile = \Retrinko\Ini\IniFile\Factory::fromIniSections($array);
-        $this->assertTrue($iniFile instanceof \Retrinko\Ini\IniFile);
+        $iniFile = Factory::fromIniSections($array);
+        $this->assertInstanceOf(IniFile::class, $iniFile);
         $this->assertEquals('', $iniFile->toString());
         $this->assertEquals([], $iniFile->toArray());
     }
 
-    /**
-     * @expectedException \Retrinko\Ini\Exceptions\InvalidDataException
-     */
     public function test_fromIniSections_withInvalidArray_thrownsException()
     {
+        $this->expectException(InvalidDataException::class);
         $array = ['a', 'b', 'c'];
-        \Retrinko\Ini\IniFile\Factory::fromIniSections($array);
+        /** @noinspection PhpParamsInspection */
+        Factory::fromIniSections($array);
     }
 
     public function test_fromIniSections_withProperSectionsArray_returnsIniFile()
     {
-        $sectionA = new \Retrinko\Ini\IniSection('section A');
+        $sectionA = new IniSection('section A');
         $sectionA->set('key1', 'val 1');
         $sectionA->set('key2', 'val 2');
 
-        $sectionB = new \Retrinko\Ini\IniSection('section B', $sectionA);
+        $sectionB = new IniSection('section B', $sectionA);
         $sectionB->set('key3', 'val 3');
 
         $sections = [$sectionA, $sectionB];
 
-        $iniFile = \Retrinko\Ini\IniFile\Factory::fromIniSections($sections);
-        $this->assertTrue($iniFile instanceof \Retrinko\Ini\IniFile);
+        $iniFile = Factory::fromIniSections($sections);
+        $this->assertInstanceOf(IniFile::class, $iniFile);
         $this->assertEquals('val 1', $iniFile->get('section A', 'key1'));
         $this->assertEquals('val 2', $iniFile->get('section A', 'key2'));
         $this->assertEquals('default', $iniFile->get('section A', 'key3', 'default'));
